@@ -13,10 +13,10 @@ class AppleAuthenticator {
   private readonly teamId = requireEnv(ENVIRONMENT_VARIABLES.APPLE_TEAM_ID);
   private readonly keyId = requireEnv(ENVIRONMENT_VARIABLES.APPLE_KEY_ID);
   private readonly redirectUri = requireEnv(
-    ENVIRONMENT_VARIABLES.APPLE_REDIRECT_URI
+    ENVIRONMENT_VARIABLES.APPLE_REDIRECT_URI,
   );
   private readonly privateKey = requireEnv(
-    ENVIRONMENT_VARIABLES.APPLE_PRIVATE_KEY
+    ENVIRONMENT_VARIABLES.APPLE_PRIVATE_KEY,
   );
 
   constructor() {
@@ -166,5 +166,5 @@ class AppleAuthenticator {
   }
 }
 
-export default AppleAuthenticator;
+export default new AppleAuthenticator();
 // Object.freeze(new AppleAuthenticator());

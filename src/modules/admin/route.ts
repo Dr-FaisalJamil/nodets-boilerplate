@@ -21,7 +21,7 @@ router.delete(
   verifyAPIKey,
   exceptionHandler(async (_req: Request, res: Response) => {
     res.json({ message: "Operation completed successfully!" });
-  })
+  }),
 );
 
 router.put(
@@ -32,7 +32,7 @@ router.put(
     const args = req.pick(["email"]);
     const response = await adminController.updateAdminById(admin, args);
     res.json(response);
-  })
+  }),
 );
 
 export default router;

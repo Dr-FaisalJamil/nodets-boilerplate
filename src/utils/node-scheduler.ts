@@ -50,5 +50,5 @@ class NodeScheduler {
     // this.schedule({ rule: "0 0 * * *", func: run });
   }
 }
-export default NodeScheduler;
+export default new NodeScheduler();
 // Object.freeze(new NodeScheduler());

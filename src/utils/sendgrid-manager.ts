@@ -9,10 +9,10 @@ class SendGridManager {
   private static instance: SendGridManager;
 
   private readonly supportEmail = requireEnv(
-    ENVIRONMENT_VARIABLES.SUPPORT_EMAIL
+    ENVIRONMENT_VARIABLES.SUPPORT_EMAIL,
   );
   private readonly sendGridApiKey = requireEnv(
-    ENVIRONMENT_VARIABLES.SEND_GRID_API_KEY
+    ENVIRONMENT_VARIABLES.SEND_GRID_API_KEY,
   );
 
   constructor() {
@@ -32,7 +32,7 @@ class SendGridManager {
   send = async (
     recipients: string[],
     templateId: string,
-    emailData: Record<string, any>
+    emailData: Record<string, any>,
   ): Promise<void> => {
     try {
       if (!recipients) throw new Error("Email not sent: no recipient provided");
@@ -61,12 +61,12 @@ class SendGridManager {
    */
   sendWelcomeEmail = async (
     recipients: string[],
-    emailData: Record<string, any>
+    emailData: Record<string, any>,
   ): Promise<void> => {
     const templateId = "d-35727e251e1346ea9f60e031805d83c4";
     return await this.send(recipients, templateId, emailData);
   };
 }
 
-export default SendGridManager;
+export default new SendGridManager();
 // Object.freeze(new SendGridManager());

@@ -18,25 +18,24 @@ import { ENVIRONMENT_VARIABLES } from "../configs/enum";
 import { requireEnv } from "../configs/helper";
 
 // variable initializations
-const socketManager = new SocketManager();
 
 class AwsIotManager {
   private static instance: AwsIotManager;
 
   private readonly mqttClientId = requireEnv(
-    ENVIRONMENT_VARIABLES.MQTT_CLIENT_ID
+    ENVIRONMENT_VARIABLES.MQTT_CLIENT_ID,
   );
   private readonly awsIotEndpoint = requireEnv(
-    ENVIRONMENT_VARIABLES.AWS_IOT_ENDPOINT
+    ENVIRONMENT_VARIABLES.AWS_IOT_ENDPOINT,
   );
   private readonly awsIotCertPath = requireEnv(
-    ENVIRONMENT_VARIABLES.AWS_IOT_CERT_PATH
+    ENVIRONMENT_VARIABLES.AWS_IOT_CERT_PATH,
   );
   private readonly awsIotPrivateKeyPath = requireEnv(
-    ENVIRONMENT_VARIABLES.AWS_IOT_PRIVATE_KEY_PATH
+    ENVIRONMENT_VARIABLES.AWS_IOT_PRIVATE_KEY_PATH,
   );
   private readonly mqttKeepAlive = requireEnv(
-    ENVIRONMENT_VARIABLES.MQTT_KEEP_ALIVE
+    ENVIRONMENT_VARIABLES.MQTT_KEEP_ALIVE,
   );
 
   private connection: /* mqtt.MqttClientConnection */ any = null;
@@ -147,7 +146,7 @@ class AwsIotManager {
     try {
       this.stats.connectionAttempts++;
       console.log(
-        `[mqtt] Attempting to connect to ${this.awsIotEndpoint} with client ID: ${this.clientId}`
+        `[mqtt] Attempting to connect to ${this.awsIotEndpoint} with client ID: ${this.clientId}`,
       );
       const connection = true; // await this.connection.connect();
       this.connected = true;
@@ -165,7 +164,7 @@ class AwsIotManager {
         // Connection is actually established, just update our state
         this.connected = true;
         console.log(
-          "[mqtt] Connection already established (detected from error)"
+          "[mqtt] Connection already established (detected from error)",
         );
         this.onConnectionSuccess();
         return true;
@@ -178,10 +177,10 @@ class AwsIotManager {
       console.error(`[mqtt] Client ID: ${this.clientId}`);
       console.error(`[mqtt] Endpoint: ${this.awsIotEndpoint}`);
       console.error(
-        `[mqtt] Cert Path: ${this.awsIotCertPath ? "Set" : "NOT SET"}`
+        `[mqtt] Cert Path: ${this.awsIotCertPath ? "Set" : "NOT SET"}`,
       );
       console.error(
-        `[mqtt] Key Path: ${this.awsIotPrivateKeyPath ? "Set" : "NOT SET"}`
+        `[mqtt] Key Path: ${this.awsIotPrivateKeyPath ? "Set" : "NOT SET"}`,
       );
       this.onConnectionLost();
       throw error;
@@ -194,7 +193,7 @@ class AwsIotManager {
    * @returns {Promise<mqtt.Subscription>} The subscription object.
    */
   async subscribe(
-    topic: string
+    topic: string,
   ): Promise<any> /* <mqtt.MqttSubscribeRequest> */ {
     // if (!this.connection) {
     //   throw new Error(
@@ -211,7 +210,7 @@ class AwsIotManager {
     //     if (rcvTopic.includes("/data")) {
     //       if (msg?.RSP || msg?.state?.reported) {
     //         // Emit raw MQTT message to sockets
-    //         socketManager.emitGroupEvent({
+    //         SocketManager.emitGroupEvent({
     //           event: rcvTopic,
     //           data: { topic: rcvTopic, message: msg },
     //         });
@@ -267,7 +266,7 @@ class AwsIotManager {
    */
   async publish(
     topic = "863251072671493/data",
-    data: any = { hello: "world", ts: new Date().toISOString() }
+    data: any = { hello: "world", ts: new Date().toISOString() },
   ) {
     // const published = await this.connection.publish(
     //   topic,
@@ -315,7 +314,7 @@ class AwsIotManager {
     } catch (err: any) {
       console.error(
         `❌ Failed to save telemetry data to file: ${err.message}`,
-        err
+        err,
       );
     }
   }
@@ -370,7 +369,7 @@ class AwsIotManager {
   private scheduleReconnect() {
     if (this.reconnectAttempt >= this.maxReconnectAttempts) {
       console.warn(
-        `🌩️ ⚠️ Max reconnection attempts (${this.maxReconnectAttempts}) reached. Will retry in ${this.maxReconnectDelay / 1000}s`
+        `🌩️ ⚠️ Max reconnection attempts (${this.maxReconnectAttempts}) reached. Will retry in ${this.maxReconnectDelay / 1000}s`,
       );
 
       // Reset attempt counter and try again after max delay
@@ -383,13 +382,13 @@ class AwsIotManager {
 
     const delay = Math.min(
       this.reconnectDelay * Math.pow(2, this.reconnectAttempt),
-      this.maxReconnectDelay
+      this.maxReconnectDelay,
     );
     this.reconnectAttempt++;
     this.stats.reconnectAttempts++;
 
     console.info(
-      `🌩️ 🔄 Scheduling reconnection attempt ${this.reconnectAttempt}/${this.maxReconnectAttempts} in ${delay / 1000}s`
+      `🌩️ 🔄 Scheduling reconnection attempt ${this.reconnectAttempt}/${this.maxReconnectAttempts} in ${delay / 1000}s`,
     );
 
     this.reconnectTimer = setTimeout(() => {
@@ -410,7 +409,7 @@ class AwsIotManager {
 
     try {
       console.info(
-        `🌩️ 🔄 Attempting to reconnect... (attempt ${this.reconnectAttempt}/${this.maxReconnectAttempts})`
+        `🌩️ 🔄 Attempting to reconnect... (attempt ${this.reconnectAttempt}/${this.maxReconnectAttempts})`,
       );
 
       // Try to reconnect using existing connection
@@ -428,7 +427,7 @@ class AwsIotManager {
           ) {
             this.connected = true;
             console.info(
-              "🌩️ ✅ Connection already established during reconnect"
+              "🌩️ ✅ Connection already established during reconnect",
             );
             this.onConnectionSuccess();
             return;
@@ -436,7 +435,7 @@ class AwsIotManager {
 
           // If connection fails with other error, try to reinitialize
           console.warn(
-            `🌩️ ⚠️ Connection attempt failed, reinitializing: ${errorMessage}`
+            `🌩️ ⚠️ Connection attempt failed, reinitializing: ${errorMessage}`,
           );
           await this.initialize();
           // Try connecting again after reinitialization
@@ -453,7 +452,7 @@ class AwsIotManager {
     } catch (error: any) {
       console.error(
         `🌩️ ❌ Reconnection attempt ${this.reconnectAttempt} failed:`,
-        error?.message || error
+        error?.message || error,
       );
 
       // Schedule next attempt
@@ -472,7 +471,7 @@ class AwsIotManager {
     }
 
     console.info(
-      `🌩️ 📡 Resubscribing to ${this.messageHandlers.size} topic(s)...`
+      `🌩️ 📡 Resubscribing to ${this.messageHandlers.size} topic(s)...`,
     );
 
     // Create a copy of handlers to avoid modification during iteration
@@ -488,7 +487,7 @@ class AwsIotManager {
       } catch (error: any) {
         console.error(
           `🌩️ ❌ Failed to resubscribe to ${topic}:`,
-          error.message
+          error.message,
         );
       }
     }

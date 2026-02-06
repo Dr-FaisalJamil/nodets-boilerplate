@@ -11,7 +11,7 @@ class PlaidManager {
   private readonly nodeEnv = requireEnv(ENVIRONMENT_VARIABLES.NODE_ENV);
   private readonly plaidSecret = requireEnv(ENVIRONMENT_VARIABLES.PLAID_SECRET);
   private readonly plaidClientId = requireEnv(
-    ENVIRONMENT_VARIABLES.PLAID_CLIENT_ID
+    ENVIRONMENT_VARIABLES.PLAID_CLIENT_ID,
   );
   // private readonly configuration = new Configuration({
   //   basePath:
@@ -95,5 +95,5 @@ class PlaidManager {
   }
 }
 
-export default PlaidManager;
+export default new PlaidManager();
 // Object.freeze(new PlaidManager());

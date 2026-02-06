@@ -34,7 +34,7 @@ router.post(
     args.type = STANDARD;
     const user: any = await authController.registerUser(args as User);
     res.json({ token: user.getSignedjwtToken() });
-  })
+  }),
 );
 
 router.post(
@@ -43,7 +43,7 @@ router.post(
     const args = req.pick(["email", "password"]);
     const response = await authController.loginUser(args as LoginDTO);
     res.json({ token: response });
-  })
+  }),
 );
 
 router.post(
@@ -54,7 +54,7 @@ router.post(
     const args = { ...req.pick(["device"]), user, shallRemoveFCM: true };
     await userController.updateUserById(user, args);
     res.json({ message: "Operation completed successfully!" });
-  })
+  }),
 );
 
 router
@@ -64,14 +64,14 @@ router
       const args = req.pick(["email"]);
       await authController.emailResetPassword(args as SendEmailDTO);
       res.json({ message: "Operation completed successfully!" });
-    })
+    }),
   )
   .put(
     exceptionHandler(async (req: IRequest, res: Response) => {
       const args = req.pick(["password", "user", "token"]);
       await authController.resetPassword(args as ResetPasswordDTO);
       res.json({ message: "Operation completed successfully!" });
-    })
+    }),
   );
 
 router.post(
@@ -84,17 +84,14 @@ router.post(
     const args = { user };
     const response: any = await userController.getUser(args);
     res.json({ token: response.getSignedjwtToken() });
-  })
+  }),
 );
 
 router.post(
   "/login/google",
   exceptionHandler(async (req: IRequest, res: Response) => {
     const { token, googleId } = req.body;
-    const googleUser = await new GoogleAuthenticator().authenticate(
-      token,
-      googleId
-    );
+    const googleUser = await GoogleAuthenticator.authenticate(token, googleId);
     const args = { googleId, email: googleUser?.email };
     let user: any = await userController.getUser(args);
     if (!user) {
@@ -110,16 +107,16 @@ router.post(
       user = await authController.registerUser(userObj);
     }
     res.json({ token: user.getSignedjwtToken() });
-  })
+  }),
 );
 
 router.post(
   "/login/facebook",
   exceptionHandler(async (req: IRequest, res: Response) => {
     const { token, facebookId } = req.body;
-    const facebookUser = await new FacebookAuthenticator().authenticate(
+    const facebookUser = await FacebookAuthenticator.authenticate(
       token,
-      facebookId
+      facebookId,
     );
     const args = { facebookId, email: facebookUser?.email };
     let user: any = await userController.getUser(args);
@@ -136,17 +133,14 @@ router.post(
       user = await authController.registerUser(userObj);
     }
     res.json({ token: user.getSignedjwtToken() });
-  })
+  }),
 );
 
 router.post(
   "/login/apple",
   exceptionHandler(async (req: IRequest, res: Response) => {
     const { token, appleId } = req.body;
-    const appleUser = await new AppleAuthenticator().authenticate(
-      token,
-      appleId
-    );
+    const appleUser = await AppleAuthenticator.authenticate(token, appleId);
     const args = { appleId, email: appleUser?.email };
     let user: any = await userController.getUser(args);
     if (!user) {
@@ -160,7 +154,7 @@ router.post(
       user = await authController.registerUser(userObj);
     }
     res.json({ token: user.getSignedjwtToken() });
-  })
+  }),
 );
 
 router.post(
@@ -169,7 +163,7 @@ router.post(
     const args = req.pick(["email", "password"]);
     const response = await authController.loginAdmin(args as LoginDTO);
     res.json({ token: response });
-  })
+  }),
 );
 
 router.post(
@@ -180,7 +174,7 @@ router.post(
     if (!args.type) args.type = STANDARD;
     const response = await authController.registerAdmin(args as Admin);
     res.json({ token: response });
-  })
+  }),
 );
 
 router.get(
@@ -192,7 +186,7 @@ router.get(
     const args = { user, device: device?.toString() || "" };
     const response = await userController.getUserProfile(args);
     res.json(response);
-  })
+  }),
 );
 
 router.get(
@@ -202,7 +196,7 @@ router.get(
     const { _id: admin } = req.admin;
     const adminExists = await adminController.getAdminById(admin);
     res.json(adminExists);
-  })
+  }),
 );
 
 export default router;

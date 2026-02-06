@@ -187,5 +187,5 @@ class BraintreeManager {
   }
 }
 
-export default BraintreeManager;
+export default new BraintreeManager();
 // Object.freeze(new BraintreeManager());

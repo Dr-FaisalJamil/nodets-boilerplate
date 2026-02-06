@@ -15,7 +15,7 @@ class AgoraManager {
 
   private readonly appId = requireEnv(ENVIRONMENT_VARIABLES.AGORA_APP_ID);
   private readonly appCertificate = requireEnv(
-    ENVIRONMENT_VARIABLES.AGORA_APP_CERTIFICATE
+    ENVIRONMENT_VARIABLES.AGORA_APP_CERTIFICATE,
   );
 
   constructor() {
@@ -68,7 +68,7 @@ class AgoraManager {
         channelName,
         uid,
         role,
-        privilegeExpireTime
+        privilegeExpireTime,
       );
     } else if (tokenType === "uid") {
       token = RtcTokenBuilder.buildTokenWithUid(
@@ -77,7 +77,7 @@ class AgoraManager {
         channelName,
         uid,
         role,
-        privilegeExpireTime
+        privilegeExpireTime,
       );
     } else {
       throw new Error("Token type is invalid");
@@ -116,14 +116,14 @@ class AgoraManager {
       this.appCertificate,
       uid,
       role,
-      privilegeExpireTime
+      privilegeExpireTime,
     );
     const token = RtmTokenBuilder.buildToken(
       this.appId,
       this.appCertificate,
       uid,
       role,
-      privilegeExpireTime
+      privilegeExpireTime,
     );
     // return the token
     return token;
@@ -169,19 +169,19 @@ class AgoraManager {
       channelName,
       uid,
       role,
-      privilegeExpireTime
+      privilegeExpireTime,
     );
     const rtmToken = RtmTokenBuilder.buildToken(
       this.appId,
       this.appCertificate,
       uid,
       role,
-      privilegeExpireTime
+      privilegeExpireTime,
     );
     // return the token
     return { rtcToken: rtcToken, rtmToken: rtmToken };
   }
 }
 
-export default AgoraManager;
+export default new AgoraManager();
 // Object.freeze(new AgoraManager());

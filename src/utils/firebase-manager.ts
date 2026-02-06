@@ -83,5 +83,5 @@ class FirebaseManager {
   }
 }
 
-export default FirebaseManager;
+export default new FirebaseManager();
 // Object.freeze(new FirebaseManager());

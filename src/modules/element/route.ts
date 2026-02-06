@@ -29,7 +29,7 @@ router.get(
     };
     const response = await elementController.getElements(args);
     res.json(response);
-  })
+  }),
 );
 
 router
@@ -40,7 +40,7 @@ router
       const args = req.pick(["title", "description"]);
       const response = await elementController.addElement(args);
       res.json(response);
-    })
+    }),
   )
   .put(
     exceptionHandler(async (req: IRequest, res: Response) => {
@@ -49,7 +49,7 @@ router
       element = element?.toString() || "";
       const response = await elementController.updateElementById(element, args);
       res.json(response);
-    })
+    }),
   )
   .patch(
     exceptionHandler(async (req: Request, res: Response) => {
@@ -60,7 +60,7 @@ router
         isDeleted,
       });
       res.json(response);
-    })
+    }),
   )
   .get(
     exceptionHandler(async (req: Request, res: Response) => {
@@ -75,7 +75,7 @@ router
       };
       const response = await elementController.getElements(args);
       res.json(response);
-    })
+    }),
   )
   .delete(
     exceptionHandler(async (req: Request, res: Response) => {
@@ -83,7 +83,7 @@ router
       element = element?.toString() || "";
       const response = await elementController.deleteElementById(element);
       res.json(response);
-    })
+    }),
   );
 
 router.get(
@@ -93,7 +93,7 @@ router.get(
     const { element } = req.params;
     const response = await elementController.getElementById(element);
     res.json(response);
-  })
+  }),
 );
 
 export default router;

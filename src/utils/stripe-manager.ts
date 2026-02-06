@@ -12,10 +12,10 @@ class StripeManager {
 
   private readonly currency = "usd";
   private readonly stripeSecretKey = requireEnv(
-    ENVIRONMENT_VARIABLES.STRIPE_SECRET_KEY
+    ENVIRONMENT_VARIABLES.STRIPE_SECRET_KEY,
   );
   private readonly stripeEndpointSecret = requireEnv(
-    ENVIRONMENT_VARIABLES.STRIPE_ENDPOINT_SECRET
+    ENVIRONMENT_VARIABLES.STRIPE_ENDPOINT_SECRET,
   );
   // private readonly stripe = new Stripe(this.stripeSecretKey);
 
@@ -412,5 +412,5 @@ class StripeManager {
   }
 }
 
-export default StripeManager;
+export default new StripeManager();
 // Object.freeze(new StripeManager());

@@ -33,7 +33,7 @@ export const addMessage = async (messageObj: Message) => {
  */
 export const updateMessageById = async (
   message: MongoID,
-  messageObj: Partial<Message>
+  messageObj: Partial<Message>,
 ) => {
   if (!message) throw new ErrorHandler("Please enter message id!", 400);
   if (!isValidObjectId(message))
@@ -41,7 +41,7 @@ export const updateMessageById = async (
   const messageExists = await MessageModel.findByIdAndUpdate(
     message,
     messageObj,
-    { new: true }
+    { new: true },
   );
   if (!messageExists) throw new ErrorHandler("message not found!", 404);
   return messageExists;

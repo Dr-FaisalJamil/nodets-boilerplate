@@ -55,7 +55,7 @@ export const getConversationById = async (conversation: MongoID) => {
   if (!isValidObjectId(conversation))
     throw new ErrorHandler("Please enter valid conversation id!", 400);
   const conversationExists = await ConversationModel.findById(
-    conversation
+    conversation,
   ).select("-createdAt -updatedAt -__v");
   if (!conversationExists)
     throw new ErrorHandler("conversation not found!", 404);

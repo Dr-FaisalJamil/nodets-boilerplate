@@ -8,13 +8,13 @@ class GoogleAuthenticator {
   private static instance: GoogleAuthenticator;
 
   private readonly clientId = requireEnv(
-    ENVIRONMENT_VARIABLES.GOOGLE_CLIENT_ID
+    ENVIRONMENT_VARIABLES.GOOGLE_CLIENT_ID,
   );
   private readonly clientSecret = requireEnv(
-    ENVIRONMENT_VARIABLES.GOOGLE_CLIENT_SECRET
+    ENVIRONMENT_VARIABLES.GOOGLE_CLIENT_SECRET,
   );
   private readonly redirectUri = requireEnv(
-    ENVIRONMENT_VARIABLES.GOOGLE_REDIRECT_URI
+    ENVIRONMENT_VARIABLES.GOOGLE_REDIRECT_URI,
   );
 
   constructor() {
@@ -77,12 +77,12 @@ class GoogleAuthenticator {
   async getUserProfile(accessToken: string): Promise<any> {
     const response = await fetch(
       "https://www.googleapis.com/oauth2/v2/userinfo",
-      { headers: { Authorization: `Bearer ${accessToken}` } }
+      { headers: { Authorization: `Bearer ${accessToken}` } },
     );
     if (!response.ok) {
       const error = await response.text();
       throw new Error(
-        `Failed to get user profile: ${response.status} ${error}`
+        `Failed to get user profile: ${response.status} ${error}`,
       );
     }
     return response.json();
@@ -119,5 +119,5 @@ class GoogleAuthenticator {
   }
 }
 
-export default GoogleAuthenticator;
+export default new GoogleAuthenticator();
 // Object.freeze(new GoogleAuthenticator());

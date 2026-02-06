@@ -27,7 +27,7 @@ export const addAdmin = async (adminObj: Admin) => {
  */
 export const updateAdminById = async (
   admin: MongoID,
-  adminObj: Partial<Admin>
+  adminObj: Partial<Admin>,
 ) => {
   if (!admin) throw new ErrorHandler("Please enter admin id!", 400);
   if (!isValidObjectId(admin))
@@ -48,7 +48,7 @@ export const getAdmin = async (query: Partial<Admin>) => {
   if (!query || Object.keys(query).length === 0)
     throw new ErrorHandler("Please enter query!", 400);
   const adminExists = await AdminModel.findOne(query).select(
-    "-createdAt -updatedAt -__v"
+    "-createdAt -updatedAt -__v",
   );
   if (!adminExists) throw new ErrorHandler("admin not found!", 404);
   return adminExists;
@@ -64,7 +64,7 @@ export const getAdminById = async (admin: MongoID) => {
   if (!isValidObjectId(admin))
     throw new ErrorHandler("Please enter valid admin id!", 400);
   const adminExists = await AdminModel.findById(admin).select(
-    "-createdAt -updatedAt -__v"
+    "-createdAt -updatedAt -__v",
   );
   if (!adminExists) throw new ErrorHandler("admin not found!", 404);
   return adminExists;

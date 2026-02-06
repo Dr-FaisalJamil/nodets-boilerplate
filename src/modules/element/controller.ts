@@ -38,7 +38,7 @@ export const addElements = async (elementsArray: Element[]) => {
  */
 export const updateElementById = async (
   element: MongoID,
-  elementObj: Partial<Element>
+  elementObj: Partial<Element>,
 ) => {
   if (!element) throw new ErrorHandler("Please enter element id!", 400);
   if (!isValidObjectId(element))
@@ -46,7 +46,7 @@ export const updateElementById = async (
   const elementExists = await ElementModel.findByIdAndUpdate(
     element,
     elementObj,
-    { new: true }
+    { new: true },
   );
   if (!elementExists) throw new ErrorHandler("element not found!", 404);
   return elementExists;
@@ -60,7 +60,7 @@ export const updateElementById = async (
  */
 export const updateElement = async (
   query: Partial<Element>,
-  elementObj: Partial<Element>
+  elementObj: Partial<Element>,
 ) => {
   if (!query || Object.keys(query).length === 0)
     throw new ErrorHandler("Please enter query!", 400);
@@ -79,7 +79,7 @@ export const updateElement = async (
  */
 export const updateElements = async (
   query: Partial<Element>,
-  elementObj: Partial<Element>
+  elementObj: Partial<Element>,
 ) => {
   if (!query || Object.keys(query).length === 0)
     throw new ErrorHandler("Please enter query!", 400);
@@ -134,7 +134,7 @@ export const getElementById = async (element: MongoID) => {
   if (!isValidObjectId(element))
     throw new ErrorHandler("Please enter valid element id!", 400);
   const elementExists = await ElementModel.findById(element).select(
-    "-createdAt -updatedAt -__v"
+    "-createdAt -updatedAt -__v",
   );
   if (!elementExists) throw new ErrorHandler("element not found!", 404);
   return elementExists;
@@ -149,7 +149,7 @@ export const getElement = async (query: Partial<Element>) => {
   if (!query || Object.keys(query).length === 0)
     throw new ErrorHandler("Please enter query!", 400);
   const elementExists = await ElementModel.findOne(query).select(
-    "-createdAt -updatedAt -__v"
+    "-createdAt -updatedAt -__v",
   );
   if (!elementExists) throw new ErrorHandler("element not found!", 404);
   return elementExists;

@@ -39,7 +39,7 @@ export const getPaymentAccount = async (params: GetPaymentAccountDTO) => {
   if (key) query[key] = value;
   if (Object.keys(query).length === 0) query._id = null;
   const paymentAccountExists = await PaymentAccountModel.findOne(query).select(
-    "-createdAt -updatedAt -__v"
+    "-createdAt -updatedAt -__v",
   );
   // if (paymentAccountExists);
   // else throw new ErrorHandler("PaymentAccount not found!",404);

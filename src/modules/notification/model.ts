@@ -47,7 +47,7 @@ const notificationSchema = new Schema(
     },
     isDeleted: { type: Boolean, select: false, index: true },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export default model(MODEL_NAMES.NOTIFICATIONS, notificationSchema);

@@ -8,7 +8,7 @@ import FilesUploader from "./files-uploader";
 class SharpManager {
   private static instance: SharpManager;
 
-  private readonly uploadFile = new FilesUploader().uploadFile;
+  private readonly uploadFile = FilesUploader.uploadFile;
 
   constructor() {
     if (!SharpManager.instance) {
@@ -120,5 +120,5 @@ class SharpManager {
   }
 }
 
-export default SharpManager;
+export default new SharpManager();
 // Object.freeze(new SharpManager());

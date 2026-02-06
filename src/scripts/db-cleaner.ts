@@ -23,7 +23,7 @@ export const cleanDB = (_db: any) => {
         console.log(element.toUpperCase(), "<= resp =>", resp);
       })
       .catch((err: any) =>
-        console.log(element.toUpperCase(), "<= err =>", err)
+        console.log(element.toUpperCase(), "<= err =>", err),
       );
   }
 };

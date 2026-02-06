@@ -13,7 +13,6 @@ import {
 // destructuring assignments
 
 // variable initializations
-const stripeManager = new StripeManager();
 const router = Router();
 
 router.post(
@@ -21,9 +20,9 @@ router.post(
   verifyAdminToken,
   exceptionHandler(async (req: IRequest, res: Response) => {
     const args = req.pick(["user", "amount", "description"]);
-    const response = await stripeManager.createTransfer(args);
+    const response = await StripeManager.createTransfer(args);
     res.json(response);
-  })
+  }),
 );
 
 router.post(
@@ -32,9 +31,9 @@ router.post(
   exceptionHandler(async (req: IRequest, res: Response) => {
     const { _id: user, email } = req.user;
     const args = { ...req.pick(["account"]), user, email };
-    const response = await stripeManager.createAccountLink(args);
+    const response = await StripeManager.createAccountLink(args);
     res.json(response);
-  })
+  }),
 );
 
 router.post(
@@ -45,12 +44,12 @@ router.post(
     // console.log("SIGNATURE: ", JSON.stringify(signature));
     // console.log("RAW_BODY: ", JSON.stringify(rawBody));
     const args = { rawBody, signature };
-    const event = await stripeManager.constructWebhooksEvent(args);
+    const event = await StripeManager.constructWebhooksEvent(args);
     return res.status(200).send({
       message: "Done",
       event,
     });
-  })
+  }),
 );
 
 export default router;

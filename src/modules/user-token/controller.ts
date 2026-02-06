@@ -21,7 +21,7 @@ export const getElement = async (query: Partial<UserToken>) => {
   if (!query || Object.keys(query).length === 0)
     throw new ErrorHandler("Please enter query!", 400);
   const elementExists = await ElementModel.findOne(query).select(
-    "-createdAt -updatedAt -__v"
+    "-createdAt -updatedAt -__v",
   );
   // if (!elementExists) throw new ErrorHandler("element not found!", 404);
   return elementExists;

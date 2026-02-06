@@ -33,7 +33,7 @@ export const verifyUserToken = async (
   req: any,
   _res: Response,
   next: NextFunction,
-  shouldReturnUserOnFailure = false
+  shouldReturnUserOnFailure = false,
 ) => {
   try {
     const token =
@@ -44,7 +44,7 @@ export const verifyUserToken = async (
     if (token) {
       const verificationObject: any = jwt.verify(
         token.trim(),
-        JWT_SECRET || ""
+        JWT_SECRET || "",
       );
 
       if (verificationObject.shouldValidateOTP) {
@@ -84,7 +84,7 @@ export const verifyUserToken = async (
 export const verifyAdminToken = async (
   req: any,
   _res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
     const token =
@@ -95,7 +95,7 @@ export const verifyAdminToken = async (
     if (token) {
       const verificationObject: any = jwt.verify(
         token.trim(),
-        JWT_SECRET || ""
+        JWT_SECRET || "",
       );
       const admin = await adminController.getAdminById(verificationObject?._id);
       if (admin) {
@@ -129,7 +129,7 @@ export const verifyOTP = exceptionHandler(
     if (userExists && code === userExists?.otp) next();
     else if (code === otp) next();
     else return next(new ErrorHandler("Invalid Code!", 400));
-  }
+  },
 );
 
 /**
@@ -138,7 +138,7 @@ export const verifyOTP = exceptionHandler(
 export const verifyStandardAdmin = (
   req: IRequest,
   _res: object,
-  next: any
+  next: any,
 ): void => {
   if (
     req?.admin?.type === ADMIN_TYPES.STANDARD ||
@@ -154,7 +154,7 @@ export const verifyStandardAdmin = (
 export const verifySuperAdmin = (
   req: IRequest,
   _res: object,
-  next: any
+  next: any,
 ): void => {
   if (req?.admin?.type === ADMIN_TYPES.SUPER_ADMIN) next();
   else next(new ErrorHandler("Unauthorized as super-admin!", 403));
@@ -166,7 +166,7 @@ export const verifySuperAdmin = (
 export const verifyStandardUser = (
   req: IRequest,
   _res: object,
-  next: any
+  next: any,
 ): void => {
   if (req?.user?.type === USER_TYPES.STANDARD) next();
   else next(new ErrorHandler("Unauthorized as standard user!", 403));
@@ -178,7 +178,7 @@ export const verifyStandardUser = (
 export const verifyValidUserToken = (
   req: IRequest,
   _res: object,
-  next: any
+  next: any,
 ): void => {
   if (req?.user?._id) next();
   else next(new ErrorHandler("Invalid Token!", 400));
@@ -190,7 +190,7 @@ export const verifyValidUserToken = (
 export const verifyValidAdminToken = (
   req: IRequest,
   _res: object,
-  next: any
+  next: any,
 ): void => {
   if (req?.admin?._id) next();
   else next(new ErrorHandler("Invalid Token!", 400));
@@ -206,7 +206,7 @@ export const checkUserPhoneExists = exceptionHandler(
     });
     if (userExists) next();
     else next(new ErrorHandler("User not found!", 404));
-  }
+  },
 );
 
 /**

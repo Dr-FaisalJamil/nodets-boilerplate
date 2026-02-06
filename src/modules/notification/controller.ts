@@ -121,7 +121,7 @@ export const notifyUsers = async (params: NotifyUsersDTO): Promise<void> => {
     }
     if (useSocket)
       // socket event emission
-      await new SocketManager().emitGroupEvent({ event, data: socketData });
+      await SocketManager.emitGroupEvent({ event, data: socketData });
   } else {
     if (useFirebase) {
       if (fcmArray && Array.isArray(fcmArray)) fcms.push(...fcmArray);
@@ -134,7 +134,7 @@ export const notifyUsers = async (params: NotifyUsersDTO): Promise<void> => {
     }
     if (useSocket)
       // socket event emission
-      await new SocketManager().emitEvent({
+      await SocketManager.emitEvent({
         to: user,
         event,
         data: socketData,
@@ -142,7 +142,7 @@ export const notifyUsers = async (params: NotifyUsersDTO): Promise<void> => {
   }
   if (useFirebase)
     // firebase notification emission
-    await new FirebaseManager().multicast({
+    await FirebaseManager.multicast({
       tokens: fcms,
       title: title || "Notification",
       body: body || "You have a new notification",
@@ -179,7 +179,7 @@ export const readNotifications = async (user: MongoID): Promise<void> => {
  * @param {Object} params notification parameters
  */
 export const sendNewMessageNotification = async (
-  params: sendNotificationsDTO
+  params: sendNotificationsDTO,
 ): Promise<void> => {
   const { username, notificationData, conversationData, messageData } = params;
   await notifyUsers({

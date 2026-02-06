@@ -8,10 +8,10 @@ import { requireEnv } from "../configs/helper";
 
 class TapManager {
   private readonly tapSecretKey = requireEnv(
-    ENVIRONMENT_VARIABLES.TAP_SECRET_KEY
+    ENVIRONMENT_VARIABLES.TAP_SECRET_KEY,
   );
   private readonly tapWebhookSecret = requireEnv(
-    ENVIRONMENT_VARIABLES.TAP_WEBHOOK_SECRET
+    ENVIRONMENT_VARIABLES.TAP_WEBHOOK_SECRET,
   );
   private readonly baseURL = "https://api.tap.company/v2";
   private readonly headers = {
@@ -333,5 +333,5 @@ class TapManager {
   }
 }
 
-export default TapManager;
+export default new TapManager();
 // Object.freeze(new TapManager());

@@ -21,5 +21,5 @@ export const resizeImages = exceptionHandler(
       // );
       next();
     } else next();
-  }
+  },
 );

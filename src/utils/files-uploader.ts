@@ -48,5 +48,5 @@ class FilesUploader {
   }
 }
 
-export default FilesUploader;
+export default new FilesUploader();
 // Object.freeze(new FilesUploader());

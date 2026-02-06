@@ -32,5 +32,5 @@ class FilesRemover {
   }
 }
 
-export default FilesRemover;
+export default new FilesRemover();
 // Object.freeze(new FilesRemover());

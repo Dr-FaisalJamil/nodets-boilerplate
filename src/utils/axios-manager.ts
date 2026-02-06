@@ -49,5 +49,5 @@ class AxiosManager {
   }
 }
 
-export default AxiosManager;
+export default new AxiosManager();
 // Object.freeze(new AxiosManager());

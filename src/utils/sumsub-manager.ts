@@ -20,13 +20,13 @@ class SumsubManager {
   private static instance: SumsubManager;
 
   private readonly sumsubAppToken = requireEnv(
-    ENVIRONMENT_VARIABLES.SUMSUB_APP_TOKEN
+    ENVIRONMENT_VARIABLES.SUMSUB_APP_TOKEN,
   );
   private readonly sumsubSecretKey = requireEnv(
-    ENVIRONMENT_VARIABLES.SUMSUB_SECRET_KEY
+    ENVIRONMENT_VARIABLES.SUMSUB_SECRET_KEY,
   );
   private readonly sumsubBaseUrl = requireEnv(
-    ENVIRONMENT_VARIABLES.SUMSUB_BASE_URL
+    ENVIRONMENT_VARIABLES.SUMSUB_BASE_URL,
   );
   private readonly config: any = { baseURL: this.sumsubBaseUrl };
   private readonly externalUserId =
@@ -83,7 +83,7 @@ class SumsubManager {
   // https://developers.sumsub.com/api-reference/#creating-an-applicant
   async createApplicant(
     externalUserId = this.externalUserId,
-    levelName = this.levelName
+    levelName = this.levelName,
   ) {
     console.log("Creating an applicant...");
 
@@ -167,7 +167,7 @@ class SumsubManager {
   async createAccessToken(
     externalUserId = this.externalUserId,
     levelName = this.levelName,
-    ttlInSecs = 600
+    ttlInSecs = 600,
   ) {
     console.log("Creating an access token for initializng SDK...");
 
@@ -238,5 +238,5 @@ class SumsubManager {
   }
 }
 
-export default SumsubManager;
+export default new SumsubManager();
 // Object.freeze(new SumsubManager());

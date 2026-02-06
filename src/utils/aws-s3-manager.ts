@@ -84,5 +84,5 @@ class AwsS3Manager {
   }
 }
 
-export default AwsS3Manager;
+export default new AwsS3Manager();
 // Object.freeze(new AwsS3Manager());

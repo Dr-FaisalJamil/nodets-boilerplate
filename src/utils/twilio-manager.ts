@@ -13,10 +13,10 @@ class TwilioManager {
   private static instance: TwilioManager;
 
   private readonly twilioAccountSid = requireEnv(
-    ENVIRONMENT_VARIABLES.TWILIO_ACCOUNT_SID
+    ENVIRONMENT_VARIABLES.TWILIO_ACCOUNT_SID,
   );
   private readonly twilioAuthToken = requireEnv(
-    ENVIRONMENT_VARIABLES.TWILIO_AUTH_TOKEN
+    ENVIRONMENT_VARIABLES.TWILIO_AUTH_TOKEN,
   );
   private readonly appTitle = requireEnv(ENVIRONMENT_VARIABLES.APP_TITLE);
   // private readonly client = twilio(this.twilioAccountSid, this.twilioAuthToken);
@@ -88,5 +88,5 @@ class TwilioManager {
   }
 }
 
-export default TwilioManager;
+export default new TwilioManager();
 // Object.freeze(new TwilioManager());

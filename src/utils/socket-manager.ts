@@ -110,5 +110,5 @@ class SocketManager {
   }
 }
 
-export default SocketManager;
+export default new SocketManager();
 // Object.freeze(new SocketManager());

@@ -29,7 +29,7 @@ const serverFunction = async () => {
     mongoose.set("strictQuery", false);
     app.use(cors({ origin: Object.values(urls), credentials: true }));
 
-    new SocketManager().initializeSocket({ server, app });
+    SocketManager.initializeSocket({ server, app });
 
     const connect = mongoose.connect(MONGO_URI || "");
 
@@ -43,7 +43,7 @@ const serverFunction = async () => {
       },
       (err) => {
         console.log(err);
-      }
+      },
     );
     app.use((req, res, next) => {
       if (req.originalUrl.toString().includes("webhook")) {
@@ -78,5 +78,5 @@ const serverFunction = async () => {
 
 serverFunction();
 console.log(
-  chalk.hex("#607070")(chalk.underline(NODE_ENV || "".toUpperCase()))
+  chalk.hex("#607070")(chalk.underline(NODE_ENV || "".toUpperCase())),
 );

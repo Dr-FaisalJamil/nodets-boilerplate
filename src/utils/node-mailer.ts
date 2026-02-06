@@ -14,10 +14,10 @@ class NodeMailer {
   private readonly webAppUrl = requireEnv(ENVIRONMENT_VARIABLES.WEB_APP_URL);
   private readonly googleEmail = requireEnv(ENVIRONMENT_VARIABLES.GOOGLE_EMAIL);
   private readonly googleAppPassword = requireEnv(
-    ENVIRONMENT_VARIABLES.GOOGLE_APP_PASSWORD
+    ENVIRONMENT_VARIABLES.GOOGLE_APP_PASSWORD,
   );
   private readonly supportEmail = requireEnv(
-    ENVIRONMENT_VARIABLES.SUPPORT_EMAIL
+    ENVIRONMENT_VARIABLES.SUPPORT_EMAIL,
   );
   // private readonly transporter = nodemailer.createTransport({
   //   host: "smtp.gmail.com",
@@ -135,7 +135,7 @@ If you didn't do this, contact us here ${this.supportEmail}`;
   }
 }
 
-export default NodeMailer;
+export default new NodeMailer();
 // Object.freeze(new NodeMailer());
 
 // Google oAuth Setup

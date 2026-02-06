@@ -29,7 +29,7 @@ router.use("/user", user);
 // Swagger UI setup
 router.use("/docs", basicAuth, swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 router.use("/docs", basicAuth, (_req: Request, res: Response) =>
-  res.redirect(POSTMAN_URL || "")
+  res.redirect(POSTMAN_URL || ""),
 );
 
 router.use("/ping", (_req: Request, res: any) => res.send("OK"));
@@ -41,7 +41,7 @@ router.use(
   exceptionHandler((req: Request, res: Response) => {
     // file?.filename || file?.key
     res.json(req.file);
-  })
+  }),
 );
 
 router.use(
@@ -52,7 +52,7 @@ router.use(
     // key: file?.filename || file?.key
     // type: file?.mimetype,
     res.json(req.files);
-  })
+  }),
 );
 
 export default router;

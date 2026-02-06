@@ -10,7 +10,7 @@ export default (req: Request, _res: Response, next: NextFunction) => {
       keys.map((key) => [
         key,
         req?.body?.[key] ?? req?.query?.[key] ?? req?.params?.[key],
-      ])
+      ]),
     );
   next();
 };
